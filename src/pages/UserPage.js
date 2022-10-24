@@ -146,6 +146,8 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const [users, setUsers] = useState()
+
   return (
     <>
       <Helmet>
