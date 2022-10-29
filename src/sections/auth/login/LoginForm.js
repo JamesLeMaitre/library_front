@@ -42,7 +42,7 @@ export default function LoginForm() {
   }
 
   return (
-    <>
+    <form onSubmit={handleLogin}>
       <Stack spacing={3}>
         <TextField name="username" label="Username"
           value={username} onChange={(e) => setUsername(e.target.value)}
@@ -72,24 +72,9 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={() => {
-        axios.post('http://localhost:8250/api/v1/login',
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-          }
-        ).then((response) => {
-          console.log(response.data);
-        }).catch((error) => {
-          console.log(error)
-        }).then((() => {
-          console.log("Always call")
-        })
-        )
-      }}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" >
         Login
       </LoadingButton>
-    </>
+    </form>
   );
 }

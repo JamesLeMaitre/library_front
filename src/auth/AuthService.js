@@ -5,12 +5,16 @@ const API_R_URL = "http://localhost:8250/api/v1/register"
 
 
 const login = async (username, password) => {
-    const response = await axios.post(API_URL, {
-        username,
-        password
-    });
-    if (response.data.data) {
-        localStorage.setItem('user', JSON.stringify(response.data));
+    const response = await axios.post(API_URL,
+        JSON.stringify({ username, password }),
+        {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true
+        }
+
+    );
+    if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data.data));
     }
     return response.data;
 
