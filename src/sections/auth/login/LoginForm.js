@@ -26,11 +26,11 @@ export default function LoginForm() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("Hop")
     try {
       await AuthService.login(username, password).then(
         () => {
-          handleClick();
-          window.location.reload();
+
         },
         (error) => {
           console.log(error);
