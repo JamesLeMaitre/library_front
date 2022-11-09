@@ -13,19 +13,24 @@ const login = async (username, password) => {
         body: JSON.stringify({ username, password })
     })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(response => {
+            if (response.status) {
+                localStorage.setItem("token", response.data)
+            } else {
+                localStorage.setItem("token", "null")
+            }
+        })
         .catch(err => console.log(err));
 
     return response;
 
 }
 
-const logout = () => {
-    localStorage.removeItem("user");
-}
+const logout = () => localStorage.removeItem("token");
+
 
 const register = (username, password, email, roleName) => {
-    return axios.post(API_R_URL, {
+    axios.post(API_R_URL, {
         username,
         password,
         email,
@@ -33,9 +38,7 @@ const register = (username, password, email, roleName) => {
     })
 }
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('user'));
-}
+const getCurrentUser = () => JSON.parse(localStorage.getItem('token'));
 
 const AuthService = {
     login,

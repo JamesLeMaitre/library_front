@@ -3,6 +3,8 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // components
 import Iconify from '../components/iconify';
 // sections
@@ -18,20 +20,33 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
+
+
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token == null) {
+      console.log("==================TOKEN=================")
+      console.log(token)
+      navigate('/login')
+    }
+  }, [theme])
 
   return (
     <>
+
       <Helmet>
         <title> Library | Minimal  </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back Admin
+          Hi, Welcome back Admin|User
         </Typography>
 
         <Grid container spacing={3}>

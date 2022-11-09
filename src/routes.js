@@ -1,4 +1,5 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, useNavigate, useRoutes } from 'react-router-dom';
+import { useEffect } from 'react';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
@@ -10,9 +11,19 @@ import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 
+
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('token') == null) {
+      console.log("==================TOKEN=================")
+      console.log(localStorage.getItem('token'))
+      navigate('/login')
+    }
+  }, [])
   const routes = useRoutes([
     {
       path: '/dashboard',

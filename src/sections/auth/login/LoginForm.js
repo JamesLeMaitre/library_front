@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Alert, AlertTitle } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
 import AuthService from '../../../auth/AuthService';
@@ -24,12 +24,20 @@ export default function LoginForm() {
     navigate('/dashboard', { replace: true });
   };
 
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Hop")
     try {
       await AuthService.login(username, password).then(
         () => {
+          const token = localStorage.getItem("token")
+          if (token) {
+            <Alert variant="outlined" severity="error">
+              Error
+            </Alert>
+
+          }
 
         },
         (error) => {
