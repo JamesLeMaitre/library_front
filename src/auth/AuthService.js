@@ -8,20 +8,13 @@ const login = async (username, password) => {
     const response = fetch(API_URL, {
         method: 'POST',
         headers: {
-            "Content-type": "application/json"
+            "Content-type": "application/json;charset=UTF-8"
         },
         body: JSON.stringify({ username, password })
     })
-        .then(res => {
-            res.json();
-            console.log(res)
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .then(err => {
-            console.log(err)
-        });
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
 
     return response;
 
