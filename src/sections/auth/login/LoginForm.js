@@ -50,7 +50,12 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} >
+      <Stack spacing={3} justifyContent="space-between" sx={{ my: 2 }}>
+        <Alert variant="outlined" severity="error" spacing={3}>
+          Error
+        </Alert>
+      </Stack>
       <Stack spacing={3}>
         <TextField name="username" label="Username"
           value={username} onChange={(e) => setUsername(e.target.value)}
@@ -82,6 +87,7 @@ export default function LoginForm() {
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" >
         Login
+
       </LoadingButton>
     </form>
   );
