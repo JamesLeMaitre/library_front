@@ -28,12 +28,8 @@ export default function LoginForm() {
       await AuthService.login(username, password).then(
         () => {
           const token = localStorage.getItem('token');
-          // alert(token);
-          if (token == null) {
-            alert('Ho');
-            // <Alert variant="outlined" severity="error" spacing={3}>
-            //     Error
-            //   </Alert>;
+          if (token === 'null') {
+            alert('Bad Credentials');
           }
         },
         (error) => {
@@ -46,12 +42,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form>
-      <Stack spacing={3} justifyContent="space-between" sx={{ my: 2 }}>
-        <Alert variant="outlined" severity="error" spacing={3}>
-          Error
-        </Alert>
-      </Stack>
+    <form onSubmit={handleLogin}>
       <Stack spacing={3}>
         <TextField name="username" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
 
@@ -72,15 +63,13 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <Checkbox name="remember" label="Remember me" />
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
       </Stack>
-
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onSubmit={handleLogin}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained">
         Login
       </LoadingButton>
     </form>

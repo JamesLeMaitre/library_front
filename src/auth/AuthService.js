@@ -14,14 +14,12 @@ const login = async (username, password) => {
     .then((res) => res.json())
     .then((response) => {
       if (response.status) {
-        console.log(response.data);
         localStorage.setItem('token', response.data);
       } else {
         localStorage.setItem('token', 'null');
       }
     })
     .catch((err) => console.log(err));
-
   return response;
 };
 
