@@ -9,63 +9,58 @@ import AuthService from '../../../auth/AuthService';
 // components
 import Iconify from '../../../components/iconify';
 
-
-
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleClick = () => {
     navigate('/dashboard', { replace: true });
   };
-
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await AuthService.login(username, password).then(
         () => {
-          const token = localStorage.getItem("token")
-          if (token) {
-            <Alert variant="outlined" severity="error">
-              Error
-            </Alert>
-
+          const token = localStorage.getItem('token');
+          // alert(token);
+          if (token == null) {
+            alert('Ho');
+            // <Alert variant="outlined" severity="error" spacing={3}>
+            //     Error
+            //   </Alert>;
           }
-
         },
         (error) => {
           console.log(error);
         }
       );
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleLogin} >
+    <form>
       <Stack spacing={3} justifyContent="space-between" sx={{ my: 2 }}>
         <Alert variant="outlined" severity="error" spacing={3}>
           Error
         </Alert>
       </Stack>
       <Stack spacing={3}>
-        <TextField name="username" label="Username"
-          value={username} onChange={(e) => setUsername(e.target.value)}
-        />
+        <TextField name="username" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
-          value={password} onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -85,9 +80,8 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" >
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onSubmit={handleLogin}>
         Login
-
       </LoadingButton>
     </form>
   );
