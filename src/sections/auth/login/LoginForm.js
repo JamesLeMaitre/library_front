@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Alert, AlertTitle } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import axios from 'axios';
 import AuthService from '../../../auth/AuthService';
 // components
 import Iconify from '../../../components/iconify';
@@ -17,6 +16,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showErr, setShowErr] = useState(false);
 
   const handleClick = () => {
     navigate('/dashboard', { replace: true });
@@ -29,7 +29,12 @@ export default function LoginForm() {
         () => {
           const token = localStorage.getItem('token');
           if (token === 'null') {
-            alert('Bad Credentials');
+            setShowErr(true);
+            setPassword('');
+            setUsername('');
+          } else {
+            setShowErr(false);
+            handleClick();
           }
         },
         (error) => {
@@ -43,7 +48,16 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleLogin}>
-      <Stack spacing={3}>
+      {!showErr ? (
+        ''
+      ) : (
+        <Stack spacing={3} sx={{ my: 3 }}>
+          <Alert severity="error" variant="outlined">
+            Bad Credentials
+          </Alert>
+        </Stack>
+      )}
+      <Stack spacing={3} sx={{ my: 3 }}>
         <TextField name="username" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
 
         <TextField

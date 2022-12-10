@@ -23,3 +23,18 @@
   OR
 </Typography>
 </Divider>
+
+UserPage 
+<Tabcell>
+
+/*  <TableCell padding="checkbox">
+<Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+</TableCell> */
+
+</Tabcell>
+
+<Avatar alt={name} src={avatarUrl} />
+
+ <TableCell align="left">{company}</TableCell>
+
+                        <TableCell align="left">{role}</TableCell>

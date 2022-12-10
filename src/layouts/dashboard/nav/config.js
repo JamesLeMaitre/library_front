@@ -12,7 +12,7 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'users',
+    title: 'Info Base',
     path: '/dashboard/user',
     icon: icon('ic_user'),
   },
@@ -30,7 +30,7 @@ const navConfig = [
     title: 'login',
     path: '/login',
     icon: icon('ic_lock'),
-  }
+  },
   // },
   // {
   //   title: 'Not found',

@@ -1,36 +1,23 @@
-import React from 'react'
-import axios from 'axios'
-import authHeader from './authHeader'
+import { useAppDispatch } from '../hooks/app.ts';
+import { setRayonItems } from '../redux/slicers/rayonSlicer.js';
+import authHeader from './authHeader';
 
-const API_RAYONS = "http://localhost:8250/api/v1/rayons/";
-const API_BASE_URL = "http://localhost:8250/api/v1/";
+const API_RAYONS = 'http://localhost:8250/api/rayons/';
+export default function UserService() {
+  const dispatch = useAppDispatch();
+  // Get All Rayons
+  const getAllRayons = async () => {
+    const rayonsData = await this.axios.get(`${API_RAYONS}list`, authHeader.config);
+    const rayonsValue = rayonsData.data;
+    console.log(rayonsValue);
+    dispatch(setRayonItems(rayonsValue));
+  };
 
-// Add a request interceptor
-axios.interceptors.request.use(config => {
-    const user = JSON.parse(localStorage.getItem('user'));
+  // async deleteRayons() {
+  //   this.axios.delete(`${API_RAYONS}${id}`, authHeader.config);
+  // }
 
-    if (user && user.data) {
-        const token = user.data;
-        config.headers['x-access-token'] = token;
-    }
-    return config;
-})
-class UserService {
-
-    // Get All Rayons
-    async getAllRayons() {
-        return await axios.get(API_RAYONS + "getAll" + { headers: authHeader() })
-    }
-
-    async getAllUsers() {
-        return await axios.get(API_BASE_URL + "list" + { headers: authHeader() })
-    }
-
-    async getRayonsById() {
-        return await axios.get(API_RAYONS + "")
-    }
-
-
+  /* async getAllUsers() {
+    return axios.get(API_BASE_URL + `list` + { headers: authHeader() });
+  } */
 }
-
-export default new UserService();

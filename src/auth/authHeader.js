@@ -1,11 +1,11 @@
-import React from 'react'
+const config = {
+  headers: {
+    'Content-type': 'application/json;charset=UTF-8',
+    Authorization: `Bearer ${localStorage.token}`,
+  },
+};
 
-const authHeader = () => {
-    const user = JSON.parse(localStorage.getItem('user'))
-
-    if (user && user.data) {
-        return { Authorization: 'Bearer ' + user.data }
-    } else { }
-}
-
-export default authHeader
+const authHeader = {
+  config,
+};
+export default authHeader;
