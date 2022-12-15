@@ -85,6 +85,8 @@ function applySortFilter(array, comparator, query) {
 export default function UserPage() {
   const [open, setOpen] = useState(null);
 
+  const [openModal, setOpenModal] = useState(false);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -178,6 +180,11 @@ export default function UserPage() {
     setOpen(true);
   };
 
+  const handleClickOpenModal = (e) => {
+    setOpen(true);
+    alert(e.target.value);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -236,10 +243,10 @@ export default function UserPage() {
                           <Label color={status ? 'error' : 'success'}>{status ? 'Used' : 'Not Used'}</Label>
                         </TableCell>
 
-                        <TableCell align="left">{moment(dateCreate).format('LLL')}</TableCell>
+                        <TableCell align="left">{moment(dateCreate).format('LL')}</TableCell>
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                          <IconButton size="large" color="inherit" onClick={handleOpenMenu(id)}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell>
@@ -315,12 +322,12 @@ export default function UserPage() {
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={handleClickOpenModal}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
       </Popover>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={Boolean(openModal)} onClose={handleClickOpenModal}>
         <DialogTitle>Add New Rayons</DialogTitle>
         <DialogContent>
           <TextField autoFocus margin="dense" id="libelle" label="Libelle" type="string" fullWidth variant="standard" />
